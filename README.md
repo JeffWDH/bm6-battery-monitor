@@ -20,14 +20,14 @@ Tested on a Linux VM with a USB Bluetooth dongle and a Windows laptop with built
 Linux testing environment:
 - Ubuntu 22.04
 - Python 3.10.12
-- bleak==0.22.2
-- pycryptodome==3.20.0
+- bleak 0.22.2
+- pycryptodome 3.20.0
 
 Windows testing environment:
 - Windows 11
 - Python 3.12.5
-- bleak=0.22.2
-- pycryptodome==3.20.0
+- bleak 0.22.2
+- pycryptodome 3.20.0
   
 For details on how I reverse engineered this, see the below post:  
 https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/
