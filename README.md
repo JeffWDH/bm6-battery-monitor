@@ -15,14 +15,20 @@ Temperature: 24
 bm6-battery-monitor.py --address 50:54:7B:xx:xx:xx --format=json
 {"voltage": 11.93, "temperature": 24}
 ```
-Tested on a Linux VM with a USB bluetooth dongle. Have not tested this on Windows or MacOS but in theory it should work. 
+Tested on a Linux VM with a USB Bluetooth dongle and a Windows laptop with built in Bluetooth. Have not tested this on MacOS but in theory it should work. 
 
-My testing environment:
+Linux testing environment:
 - Ubuntu 22.04
 - Python 3.10.12
 - bleak==0.22.2
 - pycryptodome==3.20.0
 
+Windows testing environment:
+- Windows 11
+- Python 3.12.5
+- bleak=0.22.2
+- pycryptodome==3.20.0
+  
 For details on how I reverse engineered this, see the below post:  
 https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/
 
