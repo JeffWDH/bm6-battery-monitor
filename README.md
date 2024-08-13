@@ -23,6 +23,9 @@ My testing environment:
 - bleak==0.22.2
 - pycryptodome==3.20.0
 
+For details on how I reverse engineered this, see the below post:  
+https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/
+
 I wouldn't have been able to create this without the following resources:  
 https://github.com/KrystianD/bm2-battery-monitor/blob/master/.docs/reverse_engineering.md  
 https://doubleagent.net/bm2-reversing-the-ble-protocol-of-the-bm2-battery-monitor/  
