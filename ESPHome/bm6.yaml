@@ -1,0 +1,82 @@
+# BM6 Battery Monitor - tested on ESPHome 2024.8.0
+# Heavily borrowed code from: https://github.com/KrystianD/bm2-battery-monitor
+
+esphome:
+  includes:
+    - "bm6.h"
+
+esp32:
+  board: esp32dev
+  framework:
+    type: arduino
+
+##################################################################
+# Add your ESPHome config above this line                        #
+# Make sure to keep the bm6.h include line under esphome section #
+# Also update the mac_address and interval lines below           #
+##################################################################
+
+esp32_ble_tracker:
+
+ble_client:
+  - id: bm6
+    mac_address: 00:00:00:00:00:00 # Put your BM6 address here
+    auto_connect: false
+
+interval:
+  - interval: 30m # How often you want to poll the BM6
+    then:
+      - esp32_ble_tracker.start_scan:
+      - delay: 5s
+      - esp32_ble_tracker.stop_scan:
+      - ble_client.connect: bm6
+      - ble_client.ble_write:
+          id: bm6
+          service_uuid: 0000fff0-0000-1000-8000-00805f9b34fb
+          characteristic_uuid: 0000fff3-0000-1000-8000-00805f9b34fb
+          value: [0x69, 0x7e, 0xa0, 0xb5, 0xd5, 0x4c, 0xf0, 0x24, 0xe7, 0x94, 0x77, 0x23, 0x55, 0x55, 0x41, 0x14] # Encrypted "d1550700000000000000000000000000"
+
+sensor:
+  - platform: template
+    name: "Temperature"
+    id: temperature
+    unit_of_measurement: "°C"
+    icon: "mdi:thermometer"
+    accuracy_decimals: 0
+
+  - platform: template
+    name: "Voltage"
+    id: voltage
+    unit_of_measurement: "V"
+    icon: "mdi:car-battery"
+    accuracy_decimals: 2
+
+  - platform: ble_client
+    type: characteristic
+    ble_client_id: bm6
+    name: "bm6"
+    service_uuid: 0000fff0-0000-1000-8000-00805f9b34fb
+    characteristic_uuid: 0000fff4-0000-1000-8000-00805f9b34fb
+    notify: true
+    internal: true
+    update_interval: never
+    lambda: |-
+      mbedtls_aes_context aes;
+      mbedtls_aes_init(&aes);
+      unsigned char output[16];
+      unsigned char key[16] = { 108, 101, 97, 103, 101, 110, 100, 255, 254, 48, 49, 48, 48, 48, 48, 57, };
+      unsigned char iv[16] = {};
+      mbedtls_aes_setkey_dec(&aes, key, 128);
+      mbedtls_aes_crypt_cbc(&aes, MBEDTLS_AES_DECRYPT, 16, iv, (uint8_t*)&x[0], output);
+      mbedtls_aes_free(&aes);
+
+      int tempC = output[4];
+      float volts = ((output[7] << 8) | output[8]) / 100.0f;
+      
+      if (volts > 0) {
+        id(temperature).publish_state(tempC);
+        id(voltage).publish_state(volts);
+        id(bm6).disconnect();
+      }
+      
+      return 0;
