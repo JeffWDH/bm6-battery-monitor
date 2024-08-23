@@ -1,6 +1,7 @@
 # bm6-battery-monitor
 Read data from BM6 BLE battery monitors without the invasive app.
 
+# Python application
 ```
 usage: bm6-battery-monitor.py [-h] [--format {ascii,json}] (--address <address> | --scan)
 
@@ -28,11 +29,17 @@ Windows testing environment:
 - Python 3.12.5
 - bleak 0.22.2
 - pycryptodome 3.20.0
-  
+
+# ESPHome
+Under the ESPHome directory you can find a configuration that will allow you to read your BM6 battery monitor using an ESP32 and ESPHome. This was tested on ESPHome 2024.8.0 and may break at any time...
+
+# Reverse Engineering
 For details on how I reverse engineered this, see the below post:  
 https://www.tarball.ca/posts/reverse-engineering-the-bm6-ble-battery-monitor/
 
+# Credits
 I wouldn't have been able to create this without the following resources:  
 https://github.com/KrystianD/bm2-battery-monitor/blob/master/.docs/reverse_engineering.md  
 https://doubleagent.net/bm2-reversing-the-ble-protocol-of-the-bm2-battery-monitor/  
 https://www.youtube.com/watch?v=lhLff9VACU4  
+
