@@ -24,7 +24,7 @@ ble_client:
     auto_connect: false
 
 interval:
-  - interval: 30m # How often you want to poll the BM6
+  - interval: 30min # How often you want to poll the BM6
     then:
       - esp32_ble_tracker.start_scan:
       - delay: 5s
