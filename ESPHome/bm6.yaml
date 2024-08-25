@@ -35,7 +35,9 @@ interval:
           service_uuid: 0000fff0-0000-1000-8000-00805f9b34fb
           characteristic_uuid: 0000fff3-0000-1000-8000-00805f9b34fb
           value: [0x69, 0x7e, 0xa0, 0xb5, 0xd5, 0x4c, 0xf0, 0x24, 0xe7, 0x94, 0x77, 0x23, 0x55, 0x55, 0x41, 0x14] # Encrypted "d1550700000000000000000000000000"
-
+      - delay: 15s
+      - ble_client.disconnect: bm6 # Disconnect in case there was a hung connection due to poor signal
+      
 sensor:
   - platform: template
     name: "Temperature"
