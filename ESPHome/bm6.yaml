@@ -37,6 +37,7 @@ interval:
       - delay: 5s
       - esp32_ble_tracker.stop_scan:
       - ble_client.connect: bm6
+      - delay: 1s
       - ble_client.ble_write:
           id: bm6
           service_uuid: 0000fff0-0000-1000-8000-00805f9b34fb
