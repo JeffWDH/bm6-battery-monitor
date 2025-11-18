@@ -35,22 +35,17 @@ static const uint8_t MANUFACTURER_BM6_DATA_LENGTH = 14;
  */
 bool BatteryMonitorListener::parse_device(const esp32_ble_tracker::ESPBTDevice &device) {
   // Fetch information about BLE device.
-  ESP_LOGI(TAG, "BatteryMonitorListener::parse_device called");
   const auto &service_uuids = device.get_service_uuids();
   if (service_uuids.size() != 1) {
-  ESP_LOGI(TAG, "service uid != 1");
     return false;
   }
   const auto &service_uuid = service_uuids[0];
 
   const auto &manu_datas = device.get_manufacturer_datas();
   if (manu_datas.size() != 1) {
-    ESP_LOGI(TAG, "manu_datas.size() != 1");
     return false;
   }
   const auto &manu_data = manu_datas[0];
-
-  ESP_LOGD(TAG, "Read data: %s, %s", manu_data.uuid.to_string().c_str(), format_hex_pretty(manu_data.data).c_str());
 
   // Is the device maybe a BM2 sensor.
   if (service_uuid == esp32_ble_tracker::ESPBTUUID::from_uint16(SERVICE_UUID_BM2)) {
