@@ -19,6 +19,20 @@ static const uint16_t SERVICE_UUID_BM6 = 0xFFF0;
 static const uint16_t MANUFACTURER_BM6_ID = 0x75BF;  // 
 static const uint8_t MANUFACTURER_BM6_DATA_LENGTH = 14;
 
+/**
+ * Parse all incoming BLE payloads to see if it is a Battery Monitor BLE advertisement.
+ * Currently this supports the following products:
+ *
+ *  - BM2
+ *  - BM6
+ *
+ *    It report the MAC so a user can add this as a sensor.
+ * Three points are used to identify a sensor:
+ *
+ * - Bluetooth service uuid
+ * - Bluetooth manufacturer id
+ * - Bluetooth data frame size
+ */
 bool BatteryMonitorListener::parse_device(const esp32_ble_tracker::ESPBTDevice &device) {
   // Fetch information about BLE device.
   ESP_LOGI(TAG, "BatteryMonitorListener::parse_device called");
