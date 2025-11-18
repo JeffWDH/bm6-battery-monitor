@@ -9,12 +9,12 @@ namespace batterymonitor_ble {
 
 static const char *const TAG = "batterymonitor_ble";
 
-// Mopeka Std (BM2) sensor details
+// Battery Monitor (BM2) sensor details
 static const uint16_t SERVICE_UUID_BM2 = 0xFFF1;
 static const uint16_t MANUFACTURER_BM2_ID = 0x000D;  // 
 static const uint8_t MANUFACTURER_BM2_DATA_LENGTH = 23;
 
-// Mopeka Pro (BM6) sensor details
+// Battery Monitor (BM6) sensor details
 static const uint16_t SERVICE_UUID_BM6 = 0xFFF0;
 static const uint16_t MANUFACTURER_BM6_ID = 0x75BF;  // 
 static const uint8_t MANUFACTURER_BM6_DATA_LENGTH = 14;

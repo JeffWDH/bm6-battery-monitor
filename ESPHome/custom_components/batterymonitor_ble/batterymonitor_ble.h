@@ -13,7 +13,7 @@ class BatteryMonitorListener : public esp32_ble_tracker::ESPBTDeviceListener {
   bool parse_device(const esp32_ble_tracker::ESPBTDevice &device) override;
 };
 
-}  // namespace airthings_ble
+}  // namespace batterymonitor_ble
 }  // namespace esphome
 
 #endif
