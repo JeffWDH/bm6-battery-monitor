@@ -4,6 +4,9 @@
 esphome:
   includes:
     - "bm6.h"
+  platformio_options: 
+    build_flags: 
+      - '-DMBEDTLS_CONFIG_FILE="\"mbedtls/esp_config.h\""'
 
 esp32:
   board: esp32dev
